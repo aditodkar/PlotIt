@@ -58,17 +58,18 @@ def plot(func, xpoints, color_name, xlabel, ylabel, theme, gui, line_style, file
         plt.plot(xvals, yvals, color=color_name, linewidth=2.0, linestyle=line_style)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
+
     except Exception:
         print("An error occured.")
 
     plt.grid(True)
+
     if not gui:
         plt.show()
     else:
         if not os.path.exists('.temp/'):
             os.mkdir('.temp/')
         plt.savefig(".temp/generated_plot.png")
-        plt.savefig(file_path)
 
     plt.cla()
     plt.clf()
@@ -105,11 +106,11 @@ def plot_line(arrays, color_name, xlabel, ylabel, theme, gui, line_style, file_p
 
         if len(xvals) == len(yvals):
             plt.plot(xvals, yvals, color=color_name, linewidth=2.0, linestyle=line_style)
-            plt.savefig(file_path)
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
         else:
             print("Error: You need same number of X and Y values")
+
     except Exception:
         print("An error occured.")
 
@@ -121,8 +122,6 @@ def plot_line(arrays, color_name, xlabel, ylabel, theme, gui, line_style, file_p
         if not os.path.exists('.temp/'):
             os.mkdir('.temp/')
         plt.savefig(".temp/generated_plot.png")
-        plt.savefig(file_path)
-
 
     plt.cla()
     plt.clf()

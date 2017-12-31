@@ -10,6 +10,7 @@ color = "blue"
 xlabel = "X-axis"
 ylabel = "Y-axis"
 line_style = "-"
+file_path = ""
 
 
 # Handle case if user presses Ctrl+C, show proper message while shutting down
@@ -106,10 +107,10 @@ if options.func:
         xpoints = range(xstart, xend + 1, stepsize)
         discrete = False
 
-    plu.plot(func, xpoints, color, xlabel, ylabel, theme, False, line_style, discrete)
+    plu.plot(func, xpoints, color, xlabel, ylabel, theme, False, line_style, file_path, discrete)
 
 else:  # No function, hence try to take points for line
     xypoints = options.line
-    plu.plot_line(xypoints, color, xlabel, ylabel, theme, False, line_style)
+    plu.plot_line(xypoints, color, xlabel, ylabel, theme, False, line_style, file_path)
 
 # Visualise using matplotlib
