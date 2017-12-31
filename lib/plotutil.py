@@ -20,7 +20,7 @@ def create_y_values(func, xvals):
     return yvals
 
 
-def plot(func, xpoints, color_name, xlabel, ylabel, theme, gui, discrete=False):
+def plot(func, xpoints, color_name, xlabel, ylabel, theme, gui, line_style, file_path, discrete=False):
 
     # Show plot summary
     print('***** Plot Summary *****')
@@ -55,13 +55,15 @@ def plot(func, xpoints, color_name, xlabel, ylabel, theme, gui, discrete=False):
             if color_name not in colors:
                 print(color_name, ": Color not found.")
                 color_name = 'blue'
-        plt.plot(xvals, yvals, color=color_name, linewidth=2.0)
+        plt.plot(xvals, yvals, color=color_name, linewidth=2.0, linestyle=line_style)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
+
     except Exception:
         print("An error occured.")
 
     plt.grid(True)
+
     if not gui:
         plt.show()
     else:
@@ -73,7 +75,7 @@ def plot(func, xpoints, color_name, xlabel, ylabel, theme, gui, discrete=False):
     plt.clf()
 
 
-def plot_line(arrays, color_name, xlabel, ylabel, theme, gui):
+def plot_line(arrays, color_name, xlabel, ylabel, theme, gui, line_style, file_path):
 
     # Show plot summary
     print('***** Plot Summary *****')
@@ -103,11 +105,12 @@ def plot_line(arrays, color_name, xlabel, ylabel, theme, gui):
                          arrays[arrays.find(']') + 3:len(arrays) - 1].split(',')))
 
         if len(xvals) == len(yvals):
-            plt.plot(xvals, yvals, color=color_name, linewidth=2.0)
+            plt.plot(xvals, yvals, color=color_name, linewidth=2.0, linestyle=line_style)
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
         else:
             print("Error: You need same number of X and Y values")
+
     except Exception:
         print("An error occured.")
 

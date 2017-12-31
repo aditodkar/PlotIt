@@ -25,6 +25,7 @@ def vp_start_gui():
     global val, w, root
     root = Tk()
     top = New_Toplevel_1(root)
+    m = Menubar(root)
     gui_support.init(root, top)
     root.protocol('WM_DELETE_WINDOW', destroy_app)
     root.mainloop()
@@ -65,6 +66,22 @@ def destroy_app():
     exit(0)
 
 
+class Menubar:
+    def __init__(self, master):
+        
+        menubar = Menu(root)
+
+        filemenu = Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="File", menu=filemenu)
+        filemenu.add_command(label="Quit", command=root.destroy)
+
+
+        helpmenu = Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Help", menu=helpmenu)
+
+        root.config(menu=menubar)
+
+
 class New_Toplevel_1:
     def __init__(self, top=None):
         """This class configures and populates the toplevel window.
@@ -74,6 +91,7 @@ class New_Toplevel_1:
         top.title("PlotIt")
 
         self.theme = 'light'
+        self.line_style = '-'
         root.configure(background=_lightwindowbackground)
 
         self.Canvas1 = Canvas(top)
@@ -95,7 +113,7 @@ class New_Toplevel_1:
                                                                   int(self.x_upper.get())),
                                                             self.color_input.get(),
                                                             self.theme,
-                                                            self.Canvas1))
+                                                            self.Canvas1, self.line_style))
         self.fx.configure(fg=_fgcolorlight)
         self.fx.configure(insertbackground=_fgcolorlight)
 
@@ -141,8 +159,8 @@ class New_Toplevel_1:
                                                                       int(self.x_upper.get())),
                                                                 self.color_input.get(),
                                                                 self.theme,
-                                                                self.Canvas1))
-        self.bt_plot.configure(cursor="fleur")
+                                                                self.Canvas1, self.line_style))
+        self.bt_plot.configure(cursor="left_ptr")
         self.bt_plot.configure(text='''Plot''')
         self.bt_plot.configure(width=47)
         self.bt_plot.configure(background=_bgcolorlight)
@@ -184,8 +202,8 @@ class New_Toplevel_1:
                                                                     int(self.x_upper.get())),
                                                               self.color_input.get(),
                                                               self.theme,
-                                                              self.Canvas1))
-        self.bt_go.configure(cursor="fleur")
+                                                              self.Canvas1, self.line_style))
+        self.bt_go.configure(cursor="left_ptr")
         self.bt_go.configure(text='''Go''')
         self.bt_go.configure(width=47)
         self.bt_go.configure(background=_bgcolorlight)
@@ -195,7 +213,7 @@ class New_Toplevel_1:
         self.bt_themeswitch.place(relx=0.8, rely=0.85, height=26, width=100)
         self.bt_themeswitch.configure(activebackground=_activebgcolordark)
         self.bt_themeswitch.configure(background=_bgcolorlight)
-        self.bt_themeswitch.configure(cursor="fleur")
+        self.bt_themeswitch.configure(cursor="left_ptr")
         self.bt_themeswitch.configure(text='Dark Theme')
         self.bt_themeswitch.configure(command=self.changeTheme)
         self.bt_themeswitch.configure(fg=_fgcolorlight)
@@ -290,14 +308,14 @@ class New_Toplevel_1:
             self.theme = 'dark'
             root.configure(background=_darkwindowbackground)
 
-        gui_support.Plot(self.fx.get(), self.x_lower.get(), self.x_upper.get(),
-                         self.color_input.get(), self.theme, self.Canvas1)
+        gui_support.Plot(self.fx.get(), range(int(self.x_lower.get()), int(self.x_upper.get())),
+                         self.color_input.get(), self.theme, self.Canvas1, self.line_style)
 
     def resize_plot(self, event):
         if gui_support.plotted:
             gui_support.Plot(self.fx.get(), range(int(self.x_lower.get()),
                              int(self.x_upper.get())), self.color_input.get(),
-                             self.theme, self.Canvas1)
+                             self.theme, self.Canvas1, self.line_style)
 
     @staticmethod
     def popup1(event):
